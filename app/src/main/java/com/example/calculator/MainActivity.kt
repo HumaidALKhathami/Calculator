@@ -1,5 +1,6 @@
 package com.example.calculator
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -23,14 +24,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var number1 : EditText
     private lateinit var number2 : EditText
 
-    private lateinit var temp : Number
-    private  var numberOne = 0
-    private  var numberTwo = 0
-
-    private var temp1 = ""
-    private var temp2 = ""
+    private  var temp  = 0.0
+    private  var numberOne = 0.0
+    private  var numberTwo = 0.0
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,46 +48,46 @@ class MainActivity : AppCompatActivity() {
 
         plusBtn.setOnClickListener{
             try {
-                numberOne = Integer.parseInt(number1.text.toString())
-                numberTwo = Integer.parseInt(number2.text.toString())
+                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
+                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
             }catch (e: NumberFormatException){
                 Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
             }
 
             temp = numberOne + numberTwo
-            result.text = "the sum is ${temp}"
+            result.text = "the sum is $temp"
         }
 
         minusBtn.setOnClickListener{
             try {
-                numberOne = Integer.parseInt(number1.text.toString())
-                numberTwo = Integer.parseInt(number2.text.toString())
+                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
+                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
             }catch (e: NumberFormatException){
                 Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
             }
 
             temp = numberOne - numberTwo
-            result.text = "the sum is ${temp}"
+            result.text = "the subtract is $temp"
         }
 
         multiplyBtn.setOnClickListener{
             try {
-                numberOne = Integer.parseInt(number1.text.toString())
-                numberTwo = Integer.parseInt(number2.text.toString())
+                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
+                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
             }catch (e: NumberFormatException){
                 Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
             }
 
             temp = numberOne * numberTwo
-            result.text = "the sum is ${temp}"
+            result.text = "the multiply is $temp"
         }
 
         divideBtn.setOnClickListener{
             try {
-                numberOne = Integer.parseInt(number1.text.toString())
-                numberTwo = Integer.parseInt(number2.text.toString())
+                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
+                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
 
-                if (numberTwo == 0){
+                if (numberTwo == 0.0){
                     Toast.makeText(this,R.string.divide_by_zero,Toast.LENGTH_LONG).show()
                 }
             }catch (e: NumberFormatException){
@@ -96,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             temp = numberOne / numberTwo
-            result.text = "the sum is ${temp}"
+            result.text = "the divide is ${"%.4f".format(temp)}"
         }
 
     }
