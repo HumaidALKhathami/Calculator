@@ -47,58 +47,55 @@ class MainActivity : AppCompatActivity() {
 
 
         plusBtn.setOnClickListener{
-            try {
-                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
-                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
-            }catch (e: NumberFormatException){
-                Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
-            }
 
-            temp = numberOne + numberTwo
-            result.text = "the sum is $temp"
+            result.text = "the sum is ${cheackNumbers('+')}"
         }
 
         minusBtn.setOnClickListener{
-            try {
-                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
-                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
-            }catch (e: NumberFormatException){
-                Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
-            }
 
-            temp = numberOne - numberTwo
-            result.text = "the subtract is $temp"
+            result.text = "the subtract is ${cheackNumbers('-')}"
         }
 
         multiplyBtn.setOnClickListener{
-            try {
-                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
-                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
-            }catch (e: NumberFormatException){
-                Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
-            }
 
-            temp = numberOne * numberTwo
-            result.text = "the multiply is $temp"
+            result.text = "the multiply is ${cheackNumbers('*')}"
         }
 
         divideBtn.setOnClickListener{
-            try {
-                numberOne = Integer.parseInt(number1.text.toString()).toDouble()
-                numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
 
-                if (numberTwo == 0.0){
-                    Toast.makeText(this,R.string.divide_by_zero,Toast.LENGTH_LONG).show()
-                }
-            }catch (e: NumberFormatException){
-                Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
-            }
-
-            temp = numberOne / numberTwo
-            result.text = "the divide is ${"%.4f".format(temp)}"
+            result.text = "the divide is ${"%.4f".format(cheackNumbers('/'))}"
         }
 
     }
+
+    fun cheackNumbers (operation:Char):Double{
+        try {
+            numberOne = Integer.parseInt(number1.text.toString()).toDouble()
+            numberTwo = Integer.parseInt(number2.text.toString()).toDouble()
+
+            if (numberTwo == 0.0){
+                Toast.makeText(this,R.string.divide_by_zero,Toast.LENGTH_LONG).show()
+            }
+        }catch (e: NumberFormatException){
+            Toast.makeText(this,R.string.toast,Toast.LENGTH_LONG).show()
+        }
+
+        temp = when (operation){
+            '+' -> numberOne + numberTwo
+            '-' -> numberOne - numberTwo
+            '*'-> numberOne * numberTwo
+            '/' -> {
+                if (numberTwo == 0.0){
+                    Toast.makeText(this,R.string.divide_by_zero,Toast.LENGTH_LONG).show()
+                    0.0
+                } else{
+                    numberOne / numberTwo
+                }
+            }
+            else -> 0.0
+        }
+            return temp
+            }
 
 
 }
